@@ -1,0 +1,37 @@
+﻿@using System.Web.UI.WebControls
+@model IEnumerable<Vidly.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (!Model.Any())
+{
+    <p>Customer is empty.</p>
+}
+else
+{
+    <br/>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Customer</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @{
+            foreach (var iCustomer in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(iCustomer.Name,"Details",new {id=iCustomer.Id},null)
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+}

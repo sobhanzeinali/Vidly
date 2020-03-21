@@ -6,4 +6,16 @@
 
 <h2>@Model.Movie.Name</h2>
 
+@* This is comment
+    in multiple line*@
+@{
+    var className = Model.Customers.Count == 0 ? "popular" : null;
+}
+<p class=@className>This is paragraph.</p>
 
+<ul>
+    @foreach (var customer in Model.Customers)
+    {
+        <li>@customer.Name</li>
+    }
+</ul>

@@ -24,7 +24,7 @@ namespace Vidly.Controllers
             // return View(movie);
             // return RedirectToAction("Index", "Home");
             return View(viewModel);
-        }
+        }           
 
         public ActionResult Index(int? pageNum, string sortBy)
         {
