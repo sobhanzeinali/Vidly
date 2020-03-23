@@ -24,22 +24,28 @@ namespace Vidly.Controllers
             // return View(movie);
             // return RedirectToAction("Index", "Home");
             return View(viewModel);
-        }           
-
-        public ActionResult Index(int? pageNum, string sortBy)
-        {
-            if (pageNum == null)
-            {
-                pageNum = 1;
-            }
-
-            if (String.IsNullOrWhiteSpace(sortBy))
-            {
-                sortBy = "name";
-            }
-
-            return Content("MovieID is:" + pageNum + " sortBy is:" + sortBy);
         }
+
+        public ActionResult Index()
+        {
+            var movie = new Movie() { Name = "Shrek!" };
+            return View(movie);
+        }
+
+        // public ActionResult Index(int? pageNum, string sortBy)
+        // {
+        //     if (pageNum == null)
+        //     {
+        //         pageNum = 1;
+        //     }
+        //
+        //     if (String.IsNullOrWhiteSpace(sortBy))
+        //     {
+        //         sortBy = "name";
+        //     }
+        //
+        //     return Content("MovieID is:" + pageNum + " sortBy is:" + sortBy);
+        // }
         [Route("movies/release/{Year:regex(\\d{4})}/{Month}")]
         public ActionResult ReleasedByDate(int? Month, int? Year)
         {
