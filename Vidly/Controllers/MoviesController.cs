@@ -6,21 +6,34 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Vidly.Models;
 using Vidly.ViewModels;
+using System.Data.Entity;
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+        private VidlyContext _context;
+
+        public MoviesController()
+        {
+            _context = new VidlyContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         // GET: Movies/Random
         public ActionResult Random()
         {
             var movie = new Movie() {Name = "Shrek!"};
             var customers = new List<Customer>()
             {
-                new Customer(){Id = 1,Name = "customer1"},
-                new Customer(){Id = 2,Name = "customer2"}
+                new Customer() {Id = 1, Name = "customer1"},
+                new Customer() {Id = 2, Name = "customer2"}
             };
-            var viewModel=new RandomMovieViewModel(){Customers = customers,Movie = movie};
+            var viewModel = new RandomMovieViewModel() {Customers = customers, Movie = movie};
             // return View(movie);
             // return RedirectToAction("Index", "Home");
             return View(viewModel);
@@ -28,8 +41,14 @@ namespace Vidly.Controllers
 
         public ActionResult Index()
         {
-            var movie = new Movie() { Name = "Shrek!" };
+            var movie = _context.Movies.Include(c => c.Genre).ToList();
             return View(movie);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var Movie = _context.Movies.Include(c => c.Genre).SingleOrDefault(i => i.Id == id);
+            return View(Movie);
         }
 
         // public ActionResult Index(int? pageNum, string sortBy)
